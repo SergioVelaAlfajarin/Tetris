@@ -69,7 +69,8 @@
         <Grid x:Name="GameOverMenu"
               Background="#CC000000"
               Grid.RowSpan="2"
-              Grid.ColumnSpan="3">
+              Grid.ColumnSpan="3"
+              Visibility="Hidden">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Game Over"
                            FontSize="48"
