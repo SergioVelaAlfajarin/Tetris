@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tetris.core;
 
-namespace Tetris
+namespace Tetris.blocks
 {
     internal abstract class Block
     {
@@ -22,7 +23,7 @@ namespace Tetris
 
         public IEnumerable<Position> TilePositions()
         {
-            foreach(Position p in Tiles[rotationState])
+            foreach (Position p in Tiles[rotationState])
             {
                 yield return new Position(p.Row + offset.Row, p.Column + offset.Column);
             }
@@ -35,7 +36,7 @@ namespace Tetris
 
         public void RotateCCW()
         {
-            if(rotationState == 0)
+            if (rotationState == 0)
             {
                 rotationState = Tiles.Length - 1;
             }

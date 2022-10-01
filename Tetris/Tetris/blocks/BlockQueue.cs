@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tetris
+namespace Tetris.blocks
 {
     internal class BlockQueue
     {
@@ -39,7 +39,7 @@ namespace Tetris
             do
             {
                 NextBlock = RandomBlock();
-            } 
+            }
             while (block.Id == NextBlock.Id);
 
             return block;

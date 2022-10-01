@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tetris.blocks;
 
-namespace Tetris
+namespace Tetris.core
 {
     internal class GameState
     {
@@ -33,9 +34,9 @@ namespace Tetris
 
         private bool BlockFits()
         {
-            foreach(Position p in CurrentBlock.TilePositions())
+            foreach (Position p in CurrentBlock.TilePositions())
             {
-                if(!GameGrid.IsEmpty(p.Row, p.Column))
+                if (!GameGrid.IsEmpty(p.Row, p.Column))
                 {
                     return false;
                 }

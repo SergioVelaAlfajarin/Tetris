@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tetris //https://youtu.be/jcUctrLC-7M
+namespace Tetris.core //https://youtu.be/jcUctrLC-7M
 {
     internal class GameGrid
     {
@@ -28,7 +28,7 @@ namespace Tetris //https://youtu.be/jcUctrLC-7M
 
         public bool IsInside(int r, int c) //inside of the grid
         {
-            return (r >= 0 && r < Rows) && (c >= 0 && c < Columns);
+            return r >= 0 && r < Rows && c >= 0 && c < Columns;
         }
 
         public bool IsEmpty(int r, int c)
@@ -38,9 +38,9 @@ namespace Tetris //https://youtu.be/jcUctrLC-7M
 
         public bool IsRowFull(int r)
         {
-            for(int c = 0; c<Columns; c++)
+            for (int c = 0; c < Columns; c++)
             {
-                if (grid[r,c] == 0)
+                if (grid[r, c] == 0)
                 {
                     return false;
                 }
@@ -50,9 +50,9 @@ namespace Tetris //https://youtu.be/jcUctrLC-7M
 
         public bool IsRowEmpty(int r)
         {
-            for(int c = 0; c < Columns; c++)
+            for (int c = 0; c < Columns; c++)
             {
-                if (grid[r,c] != 0)
+                if (grid[r, c] != 0)
                 {
                     return false;
                 }
@@ -62,7 +62,7 @@ namespace Tetris //https://youtu.be/jcUctrLC-7M
 
         private void ClearRow(int r)
         {
-            for(int c= 0; c<Columns; c++)
+            for (int c = 0; c < Columns; c++)
             {
                 grid[r, c] = 0;
             }
@@ -70,7 +70,7 @@ namespace Tetris //https://youtu.be/jcUctrLC-7M
 
         private void MoveRowDown(int r, int numRows)
         {
-            for(int c=0; c<Columns; c++)
+            for (int c = 0; c < Columns; c++)
             {
                 grid[r + numRows, c] = grid[r, c];
                 grid[r, c] = 0;
@@ -80,15 +80,15 @@ namespace Tetris //https://youtu.be/jcUctrLC-7M
         public int ClearFullRows()
         {
             int cleared = 0;
-            
-            for(int r = Rows-1; r >= 0; r--)
+
+            for (int r = Rows - 1; r >= 0; r--)
             {
                 if (IsRowFull(r))
                 {
                     ClearRow(r);
                     cleared++;
                 }
-                else if(cleared > 0)
+                else if (cleared > 0)
                 {
                     MoveRowDown(r, cleared);
                 }

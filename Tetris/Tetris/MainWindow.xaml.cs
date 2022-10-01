@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tetris.blocks;
+using Tetris.core;
 
 namespace Tetris
 {
@@ -96,7 +98,7 @@ namespace Tetris
             }
         }
 
-        private void DrawBlock(Block block)
+        private void DrawBlock(blocks.Block block)
         {
             foreach(Position p in block.TilePositions())
             {
