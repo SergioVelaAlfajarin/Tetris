@@ -39,13 +39,13 @@ namespace Tetris
         private readonly ImageSource[] blockImages = new ImageSource[]
         {
             new BitmapImage(new Uri("Assets/Block-Empty.png", UriKind.Relative)),
-            new BitmapImage(new Uri("Assets/Block-I", UriKind.Relative)),
-            new BitmapImage(new Uri("Assets/Block-J", UriKind.Relative)),
-            new BitmapImage(new Uri("Assets/Block-L", UriKind.Relative)),
-            new BitmapImage(new Uri("Assets/Block-O", UriKind.Relative)),
-            new BitmapImage(new Uri("Assets/Block-S", UriKind.Relative)),
-            new BitmapImage(new Uri("Assets/Block-T", UriKind.Relative)),
-            new BitmapImage(new Uri("Assets/Block-Z", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/Block-I.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/Block-J.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/Block-L.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/Block-O.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/Block-S.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/Block-T.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/Block-Z.png", UriKind.Relative)),
         };
 
         private readonly Image[,] imageControls;
@@ -75,7 +75,7 @@ namespace Tetris
                         Height = cellSize
                     };
 
-                    Canvas.SetTop(imageControl, (r - 2) * cellSize);
+                    Canvas.SetTop(imageControl, (r - 2) * cellSize + 10);
                     Canvas.SetLeft(imageControl, c * cellSize);
 
                     GameCanvas.Children.Add(imageControl);
@@ -106,11 +106,32 @@ namespace Tetris
             }
         }
 
+        private void DrawHeldBlock(blocks.Block heldBlock)
+        {
+            if(heldBlock == null)
+            {
+                HoldImage.Source = blockImages[0];
+            }
+            else
+            {
+                HoldImage.Source = blockImages[heldBlock.Id];
+            }
+        }
+
+        private void DrawNextBlock(BlockQueue blockQueue)
+        {
+            blocks.Block next = blockQueue.NextBlock;
+            Console.WriteLine(blockImages[next.Id]);
+            NextImage.Source = blockImages[next.Id];
+        }
+
         private void Draw(GameState gameState)
         {
             DrawGrid(gameState.GameGrid);
             DrawBlock(gameState.CurrentBlock);
-
+            DrawNextBlock(gameState.BlockQueue);
+            DrawHeldBlock(gameState.HeldBlock);
+            ScoreText.Text = $"Score: {gameState.Score}";
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -137,6 +158,12 @@ namespace Tetris
                 case Key.Z:
                     gameState.RotateBlockCCW();
                     break;
+                case Key.C:
+                    gameState.HoldBlock();
+                    break;
+                case Key.Space:
+                    gameState.DropBlock();
+                    break;
                 default:
                     return;
             }
@@ -144,14 +171,31 @@ namespace Tetris
             Draw(gameState);
         }
 
-        private void GameCanvas_Loaded(object sender, RoutedEventArgs e)
+        private async Task GameLoop()
         {
             Draw(gameState);
+
+            while (!gameState.GameOver)
+            {
+                await Task.Delay(500);
+                gameState.MoveBlockDown();
+                Draw(gameState);
+            }
+
+            GameOverMenu.Visibility = Visibility.Visible;
+            FinalScoreText.Text = $"Score: {gameState.Score}";
         }
 
-        private void PlayAgain_Click(object sender, RoutedEventArgs e)
+        private async void GameCanvas_Loaded(object sender, RoutedEventArgs e)
         {
+            await GameLoop();
+        }
 
+        private async void PlayAgain_Click(object sender, RoutedEventArgs e)
+        {
+            gameState = new();
+            GameOverMenu.Visibility = Visibility.Hidden;
+            await GameLoop();
         }
     }
 }
