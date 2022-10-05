@@ -135,7 +135,7 @@ namespace Tetris.core
 
             if(lineas > 0)
             {
-                Score += lineas*2048 + (Score / 100);
+                Score++;
             }
 
             if (IsGameOver())
