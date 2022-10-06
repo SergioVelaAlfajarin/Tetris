@@ -54,7 +54,7 @@ namespace Tetris
         private readonly int minDelay = 75;
         private readonly int delayIncrease = 25;
 
-        private GameState gameState = new();
+        private GameState gameState = new GameState();
 
 
 
@@ -212,7 +212,7 @@ namespace Tetris
 
         private async void PlayAgain_Click(object sender, RoutedEventArgs e)
         {
-            gameState = new();
+            gameState = new GameState();
             GameOverMenu.Visibility = Visibility.Hidden;
             await GameLoop();
         }

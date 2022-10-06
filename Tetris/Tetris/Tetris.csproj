@@ -2,10 +2,11 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Nullable>disable</Nullable>
     <UseWPF>true</UseWPF>
     <PackageIcon>Icon.ico</PackageIcon>
+    <UseWindowsForms>False</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
