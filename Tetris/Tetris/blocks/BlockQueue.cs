@@ -17,7 +17,7 @@ namespace Tetris.blocks
             new SBlock(),
             new TBlock(),
             new ZBlock(),
-        };
+        }; //creates a list with all the game blocks
 
         private readonly Random random = new Random();
 
@@ -26,7 +26,7 @@ namespace Tetris.blocks
         public BlockQueue()
         {
             NextBlock = RandomBlock();
-        }
+        } 
 
         private Block RandomBlock()
         {
@@ -43,6 +43,6 @@ namespace Tetris.blocks
             while (block.Id == NextBlock.Id);
 
             return block;
-        }
+        } 
     }
 }

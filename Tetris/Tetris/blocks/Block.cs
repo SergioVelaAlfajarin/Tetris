@@ -9,9 +9,9 @@ namespace Tetris.blocks
 {
     internal abstract class Block
     {
-        protected abstract Position[][] Tiles { get; }
-        protected abstract Position StartOffset { get; }
-        public abstract int Id { get; }
+        protected abstract Position[][] Tiles { get; } //Tiles the block whill use
+        protected abstract Position StartOffset { get; } //where will the block spawn
+        public abstract int Id { get; } //block id
 
         private int rotationState;
         private Position offset;

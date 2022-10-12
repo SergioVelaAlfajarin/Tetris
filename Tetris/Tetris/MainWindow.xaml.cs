@@ -50,7 +50,7 @@ namespace Tetris
 
         private readonly Image[,] imageControls;
 
-        private readonly int maxDelay = 1000;
+        private readonly int maxDelay = 1000; //delay will change depending on game score
         private readonly int minDelay = 75;
         private readonly int delayIncrease = 25;
 
